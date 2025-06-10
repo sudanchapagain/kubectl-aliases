@@ -88,13 +88,10 @@ def main():
         ]
 
     shellFormatting = {
-        "bash": "alias {}='{}'",
-        "zsh": "alias {}='{}'",
-        "fish": "abbr --add {} \"{}\"",
         "nushell": "alias {} = {}",
     }
 
-    shell = sys.argv[1] if len(sys.argv) > 1 else "bash"
+    shell = sys.argv[1] if len(sys.argv) > 1 else "nushell"
     if shell not in shellFormatting:
         raise ValueError("Shell \"{}\" not supported. Options are {}"
                         .format(shell, [key for key in shellFormatting]))

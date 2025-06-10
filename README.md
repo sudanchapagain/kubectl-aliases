@@ -1,18 +1,11 @@
 # kubectl-aliases
 
-This repository contains [a script](generate_aliases.py) to generate hundreds of
-convenient shell aliases for kubectl, so you no longer need to spell out every single
-command and --flag over and over again.
+[a script](generate_aliases.py) to generate hundreds of convenient shell
+aliases for kubectl.
 
-An example shell alias created from command/flags permutation looks like:
+### examples
 
-    alias ksysgdepwslowidel='kubectl --namespace=kube-system get deployment --watch --show-labels -o=wide -l'
-
-Confused? Read on.
-
-### Examples
-
-Some of the 800 generated aliases are:
+some of the 800 generated aliases are:
 
 ```sh
 alias k='kubectl'
@@ -37,60 +30,18 @@ alias kgwf='kubectl get --watch -f'
 
 See [the full list](.kubectl_aliases).
 
-### Installation
+### installation
 
-You can directly download the [`.kubectl_aliases` file](https://raw.githubusercontent.com/ahmetb/kubectl-aliases/master/.kubectl_aliases)
-for bash/zsh or the [`.kubectl_aliases.fish` file](https://raw.githubusercontent.com/ahmetb/kubectl-aliases/master/.kubectl_aliases.fish) for fish
-or the [`.kubectl_aliases.nu` file](https://raw.githubusercontent.com/ahmetb/kubectl-aliases/master/.kubectl_aliases.nu) for Nushell
-and save it to your `$HOME` directory.
+you can directly download the [`.kubectl_aliases.nu` file](https://raw.githubusercontent.com/ahmetb/kubectl-aliases/master/.kubectl_aliases.nu)
+for Nushell and save it to your `$HOME` directory.
 
-#### Bash/Zsh
-
-Add the following to your `.bashrc/.zshrc` file:
-
-```sh
-[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
-```
-
-> **Recommendation:** If you want to use GNU `watch`  command instead of
-> `kubectl [...] --watch`, run it like this:
->
->     [ -f ~/.kubectl_aliases ] && source \
->        <(cat ~/.kubectl_aliases | sed -r 's/(kubectl.*) --watch/watch \1/g')
-
-**Print the full command before running it:** Add this to your `.bashrc` or
-`.zshrc` file:
-
-```sh
-function kubectl() { echo "+ kubectl $@" >&2; command kubectl "$@"; }
-```
-
-#### Fish
-
-Add the following to your `~/.config/fish/config.fish` file:
-
-```fish
-test -f ~/.kubectl_aliases.fish && source ~/.kubectl_aliases.fish
-```
-
-This actually adds the more powerful fish [abbreviations](https://fishshell.com/docs/current/cmds/abbr.html)
-instead of aliases, so that pressing space shows the full command before execution.
-
-> **Recommendation:** If you want to use GNU `watch`  command instead of
-> `kubectl [...] --watch`, run it like this:
->
->     test -f ~/.kubectl_aliases.fish && source \
->          (cat ~/.kubectl_aliases.fish | sed -r 's/(kubectl.*) --watch/watch \1/g' | psub)
-
-#### Nushell
-
-Add the following to your `~/.config/nushell/config.nu` file:
+add the following to your `~/.config/nushell/config.nu` file:
 
 ```nushell
 source ~/.kubectl_aliases.nu
 ```
 
-### Syntax explanation
+### syntax explanation
 
 * **`k`**: `kubectl`
   * **`sys`**: `--namespace kube-system`
@@ -122,7 +73,7 @@ source ~/.kubectl_aliases.nu
   * **`f`**: `-f/--filename`
   * **`l`**: `-l/--selector`
 
-### Running the script
+### running the script
 
 The script has only one optional argument, the shell to which the aliases will be generated. If not given, it assumes `bash`. Ex:
 
@@ -130,29 +81,11 @@ The script has only one optional argument, the shell to which the aliases will b
 # Generate aliases for bash/zsh
 python generate_aliases.py > .kubectl_aliases
 
-# Generate abbr for fish
-python generate_aliases.py fish > .kubectl_aliases.fish
-
 # Generate aliases for nushell
 python generate_aliases.py nushell > .kubectl_aliases.nu
 ```
 
-### FAQ
-
-- **Doesn't this slow down my shell start up?** Sourcing the file that contains
-~500 aliases takes about 30-45 milliseconds in my shell (zsh). I don't think
-it's a big deal for me. Measure it with `echo $(($(date '+%s%N') / 1000000))`
-command yourself in your .bashrc/.zshrc.
-
-- **Can I add more Kubernetes resource types to this?** Please consider forking
-  this repo and adding the resource types you want. Not all resource types are
-  used by everyone, and adding more resource types slows down shell initialization
-  see above).
-
-- **Where can I find PowerShell aliases for kubectl?** There’s a fork of this
-  [here](https://github.com/shanoor/kubectl-aliases-powershell).
-
-### Authors
+### authors
 
 - [@ahmetb](https://twitter.com/ahmetb)
 
